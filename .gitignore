@@ -1,3 +1,6 @@
 **.DS_Store
 **.ipynb_checkpoints
 .vscode/settings.json
+**.Rproj
+**.Rproj.user/
+**.Rhistory
