@@ -17,7 +17,9 @@ def df_clean():
     """Read cleaned df from /data"""
     return pd.read_csv(p_clean) \
         .assign(year=lambda x: pd.PeriodIndex(x.year, freq='Y')) \
-        .set_index('year')
+        .merge(right=df_country(), how='right', on='country_code') \
+        .set_index('year') \
+        [['country', 'energy_type', 'energy']]
 
 def df_country():
     """Read country code conversion df"""
@@ -49,7 +51,8 @@ def convert_raw_data():
         .dropna(subset=['API']) \
         .replace({'--': pd.NA}) \
         .drop(columns=['API']) \
-        .melt(id_vars=['energy_type', 'country_code'], var_name='year', value_name='energy')
+        .melt(id_vars=['energy_type', 'country_code'], var_name='year', value_name='energy') \
+        .set_index('year')
     
     # write cleaned df to csv
     df.to_csv(p_clean)
