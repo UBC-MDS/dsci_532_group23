@@ -1,4 +1,4 @@
-# DSCI 532
+# World Energy Consumption Dashboard
 - author: DSCI 532 group 23
 
 This is a group project of designing a dashboard for world energy consumption.
