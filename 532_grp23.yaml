@@ -10,4 +10,5 @@ dependencies:
   - nbformat
   - psutil
   - requests
+  - dash
 prefix: /opt/miniconda3/envs/532_grp23
