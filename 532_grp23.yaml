@@ -11,4 +11,5 @@ dependencies:
   - psutil
   - requests
   - dash
+  - dash-bootstrap-components
 prefix: /opt/miniconda3/envs/532_grp23
