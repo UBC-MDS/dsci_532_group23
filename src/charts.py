@@ -1,8 +1,35 @@
+import plotly.express as px
 import plotly.graph_objs as go
 import plotly.offline as py
 import seaborn as sns
 from matplotlib import pyplot
 from plotly.subplots import make_subplots
+
+
+def world_map(df, year='2018', energy_type='all_renewable'):
+
+    # TODO dropdown will need to pass these params in to filter data vs completely rebuilding plot
+    df = df.loc[year] \
+        .pipe(lambda df: df[df.energy_type == energy_type])
+
+    map_trace = go.Choropleth(
+        locations=df.country_code,
+        z=df.energy,
+        locationmode='ISO-3',
+        colorscale='viridis',
+        # reversescale=True
+        # colorbar_title = "Millions USD",
+    )
+
+    fig = go.Figure(data=[map_trace])
+
+    fig.update_layout(
+        title_text = 'World Energy Consumption',
+        margin=dict(t=30, b=0, r=0, l=20),
+        # geo_scope='usa', # limite map scope to USA
+    )
+
+    return fig
 
 def chart_single_country(df, country='Canada'):
     fig = go.Figure()

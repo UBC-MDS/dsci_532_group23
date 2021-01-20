@@ -19,7 +19,6 @@ def df_clean():
         .assign(year=lambda x: pd.PeriodIndex(x.year, freq='Y')) \
         .merge(right=df_country(), how='right', on='country_code') \
         .set_index('year') \
-        [['country', 'energy_type', 'energy']]
 
 def df_country():
     """Read country code conversion df"""
