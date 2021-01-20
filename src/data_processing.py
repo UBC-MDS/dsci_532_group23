@@ -17,8 +17,8 @@ def df_clean():
     """Read cleaned df from /data"""
     return pd.read_csv(p_clean) \
         .assign(year=lambda x: pd.PeriodIndex(x.year, freq='Y')) \
+        .merge(right=df_country(), how='right', on='country_code') \
         .set_index('year') \
-        .merge(right=df_country(), how='right', on='country_code')
 
 def df_country():
     """Read country code conversion df"""
