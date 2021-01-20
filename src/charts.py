@@ -6,15 +6,21 @@ from matplotlib import pyplot
 from plotly.subplots import make_subplots
 
 
-def world_map(df, year='2018', energy_type='all_renewable'):
+def world_map(df, year='2018', energy_type='all_renewable', **kw):
+    """Create main world map plot of energy consumption"""
 
-    # TODO dropdown will need to pass these params in to filter data vs completely rebuilding plot
+    # filter 
+    # NOTE filtering everyting less than 1e9.. some small countries have weird per capita values
     df = df.loc[year] \
-        .pipe(lambda df: df[df.energy_type == energy_type])
+        .pipe(lambda df: df[
+            (df.energy_type == energy_type) &
+            (df.country_code != 'WORL') &
+            (df.energy_per_capita < 1e9)
+            ])
 
     map_trace = go.Choropleth(
         locations=df.country_code,
-        z=df.energy,
+        z=df.energy_per_capita,
         locationmode='ISO-3',
         colorscale='viridis',
         # reversescale=True
