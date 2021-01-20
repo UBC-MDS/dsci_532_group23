@@ -18,12 +18,33 @@ def df_clean():
     return pd.read_csv(p_clean) \
         .assign(year=lambda x: pd.PeriodIndex(x.year, freq='Y')) \
         .merge(right=df_country(), how='right', on='country_code') \
-        .set_index('year') \
+        .merge(
+            right=df_population()[['year', 'country_code', 'population']],
+            on=['year', 'country_code'],
+            how='left') \
+        .set_index('year', drop=False) \
+        .rename_axis('index') \
+        .assign(energy_per_capita=lambda x: 1e15 * x.energy / x.population) # btu (quad is 1e15)
 
 def df_country():
     """Read country code conversion df"""
     p = p_data / 'country_conv.csv'
     return pd.read_csv(p)
+
+def df_population():
+    p = p_data / 'world_population.csv'
+
+    m_rename = {
+        'Country Name': 'country',
+        'Country Code': 'country_code',
+        'Year': 'year',
+        'Value': 'population'}
+
+    return pd.read_csv(p) \
+        .rename(columns=m_rename) \
+        .assign(year=lambda x: pd.PeriodIndex(x.year, freq='Y')) \
+        .set_index('year', drop=False) \
+        .rename_axis('index')
 
 def convert_raw_data():
     """
