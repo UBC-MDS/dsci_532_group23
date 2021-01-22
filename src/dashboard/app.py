@@ -79,7 +79,7 @@ def run():
         # html.Div(id='dd-output-container')
     ])
 
-    #app.run_server(debug=True)
+    app.run_server(debug=True)
 
 if __name__ == '__main__':
     run()
