@@ -18,6 +18,8 @@ df = dp.df_clean()
 
 log.warning('Everything init')
 
+print('PRINT TEST')
+
 @app.callback(
     Output('world_map', 'figure'),
     Input('energy_dropdown', 'value'),
