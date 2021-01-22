@@ -9,7 +9,7 @@ from .. import data_processing as dp
 from ..__init__ import getlog
 
 log = getlog(__name__)
-app = dash.Dash(__name__, external_stylesheets = [dbc.themes.BOOTSTRAP])
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
 df = dp.df_clean()
@@ -39,7 +39,7 @@ def update_map_energy(energy_type, year, *args, **kw):
     print(energy_type, year)
     return ch.world_map(df=df, energy_type=energy_type, year=str(year))
 
-def run():
+def run(app):
 
     # set default chart
     fig = ch.world_map(df=df, year='2018', energy_type='all_renewable')
@@ -79,7 +79,9 @@ def run():
         # html.Div(id='dd-output-container')
     ])
 
-    app.run_server(debug=True)
+    return app
+    # app.run_server(debug=True)
 
 if __name__ == '__main__':
-    run()
+    app = run(app)
+    app.run_server(debug=True)
