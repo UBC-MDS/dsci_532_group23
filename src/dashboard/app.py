@@ -10,6 +10,7 @@ from ..__init__ import getlog
 
 log = getlog(__name__)
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app.layout = html.Div([]) # set fake layout
 server = app.server
 
 log.info('server set')
