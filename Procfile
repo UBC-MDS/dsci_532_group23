@@ -1,1 +1,1 @@
-web: gunicorn src.dashboard.app:server --pythonpath=./src/dashboard/
+web: gunicorn src.app:server --pythonpath=src
