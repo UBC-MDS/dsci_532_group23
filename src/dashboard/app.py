@@ -9,10 +9,14 @@ from .. import data_processing as dp
 from ..__init__ import getlog
 
 log = getlog(__name__)
+log.warning('LOGGING WARNING TEST')
+log.error('LOGGING ERROR TEST')
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
 df = dp.df_clean()
+
+log.warning('Everything init')
 
 @app.callback(
     Output('world_map', 'figure'),
