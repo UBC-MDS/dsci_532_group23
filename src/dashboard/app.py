@@ -10,7 +10,7 @@ from ..__init__ import getlog
 
 log = getlog(__name__)
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-app.layout = html.Div([]) # set fake layout
+# app.layout = html.Div([]) # set fake layout
 server = app.server
 
 log.info('server set')
@@ -83,8 +83,10 @@ def run(app):
     return app
     # app.run_server(debug=True)
 
+log.info('running outside of main')
+app = run(app)
+
 if __name__ == '__main__':
     log.info('running main')
-    app = run(app)
     log.info(f'app layout: {app.layout}')
     app.run_server(debug=True)
