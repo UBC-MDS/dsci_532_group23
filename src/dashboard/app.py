@@ -4,7 +4,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
-from  import charts as ch
+from .. import charts as ch
 from .. import data_processing as dp
 from ..__init__ import getlog
 
