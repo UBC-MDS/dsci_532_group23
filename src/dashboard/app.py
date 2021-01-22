@@ -14,8 +14,6 @@ server = app.server
 
 df = dp.df_clean()
 
-
-
 @app.callback(
     Output('world_map', 'figure'),
     Input('energy_dropdown', 'value'),
@@ -84,4 +82,5 @@ def run(app):
 
 if __name__ == '__main__':
     app = run(app)
+    log.info(f'app layout: {app.layout}')
     app.run_server(debug=True)
