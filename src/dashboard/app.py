@@ -10,10 +10,6 @@ from ..__init__ import getlog
 
 log = getlog(__name__)
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-# app.layout = html.Div([]) # set fake layout
-server = app.server
-
-log.info('server set')
 
 df = dp.df_clean()
 
@@ -40,7 +36,8 @@ def update_map_energy(energy_type, year, *args, **kw):
     print(energy_type, year)
     return ch.world_map(df=df, energy_type=energy_type, year=str(year))
 
-def run(app):
+def make_app():
+    """Add layout to global app"""
 
     # set default chart
     fig = ch.world_map(df=df, year='2018', energy_type='all_renewable')
@@ -80,13 +77,11 @@ def run(app):
         # html.Div(id='dd-output-container')
     ])
 
-    return app
-    # app.run_server(debug=True)
+    return app # this returns the global app
 
-log.info('running outside of main')
-app = run(app)
+# log.info('running outside of main')
+# app = run(app)
 
-if __name__ == '__main__':
-    log.info('running main')
-    log.info(f'app layout: {app.layout}')
-    app.run_server(debug=True)
+# if __name__ == '__main__':
+#     log.info('running main')
+#     app.run_server(debug=True)
