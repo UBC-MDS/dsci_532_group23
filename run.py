@@ -1,6 +1,7 @@
-from src.dashboard import app
+import src.dashboard.app as dba
 
+app = dba.make_app()
 server = app.server
 
 if __name__ == '__main__':
-    app.run()
+    app.run_server(debug=True)

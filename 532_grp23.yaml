@@ -12,4 +12,5 @@ dependencies:
   - requests
   - dash
   - dash-bootstrap-components
+  - gunicorn
 prefix: /opt/miniconda3/envs/532_grp23

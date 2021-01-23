@@ -1,20 +1,17 @@
 import dash
+import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-import dash_bootstrap_components as dbc
 
 from .. import charts as ch
 from .. import data_processing as dp
 from ..__init__ import getlog
 
 log = getlog(__name__)
-app = dash.Dash(__name__, external_stylesheets = [dbc.themes.BOOTSTRAP])
-server = app.server
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 df = dp.df_clean()
-
-
 
 @app.callback(
     Output('world_map', 'figure'),
@@ -39,7 +36,8 @@ def update_map_energy(energy_type, year, *args, **kw):
     print(energy_type, year)
     return ch.world_map(df=df, energy_type=energy_type, year=str(year))
 
-def run():
+def make_app():
+    """Add layout to global app"""
 
     # set default chart
     fig = ch.world_map(df=df, year='2018', energy_type='all_renewable')
@@ -79,7 +77,4 @@ def run():
         # html.Div(id='dd-output-container')
     ])
 
-    app.run_server(debug=True)
-
-if __name__ == '__main__':
-    run()
+    return app # this returns the global app
