@@ -4,7 +4,6 @@ import plotly.offline as py
 import seaborn as sns
 from matplotlib import pyplot
 from plotly.subplots import make_subplots
-import ipywidgets as ipw
 
 def multi_plots(df, **kw):
     """Return world_map with bar_top 10"""
