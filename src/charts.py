@@ -14,7 +14,7 @@ def multi_plots(df, year='1980', energy_type='renewables', energy_col='energy_pe
     # filter df, both use same data
     df = filter_df(df, energy_type=energy_type, year=year)
     fig2 = top_bar(df=df, energy_col=energy_col)
-    fig1 = world_map(df=df, energy_col=energy_col)
+    fig1 = world_map(df=df, year=year, energy_col=energy_col)
 
     return fig1, fig2
 
@@ -52,7 +52,10 @@ def top_bar(df, energy_type='renewables', year='1980', n=10, energy_col='energy_
         xaxis=xaxis,
         title_text = f'Top {n} Energy Consumers',
         margin=dict(t=30, b=0, r=0, l=100),
-        width=400
+        width=400,
+        title={
+        #'y':0.95,
+        'x':0.5}
     )
 
     return fig
@@ -71,9 +74,13 @@ def world_map(df, year='1980', energy_type='renewables', energy_col='energy_per_
     fig = go.Figure(data=[map_trace])
 
     fig.update_layout(
-        title_text = 'World Energy Consumption',
+        title_text = f'World Energy Consumption ({year})',
         margin=dict(t=30, b=0, r=0, l=20),
-        width=800
+        width=800,
+        title_font_size=24,#dict(size=24),
+        title={
+        'y':0.95,
+        'x':0.4}
         # geo_scope='usa', # limite map scope to USA
     )
 
@@ -107,14 +114,19 @@ def single_country(df, country='Canada'):
     fig.update_layout(
         xaxis=xaxis,
         margin=dict(t=30, b=0, r=0, l=0),
-        title=f'Energy Consumption ({country})',
+        title_text=f'Energy Consumption ({country})',
         yaxis=dict(
             title='Energy Consumption (Quad BTU)',
             showgrid=False
         ),
-        width=800,
+        width=1000,
         height=300,
-        plot_bgcolor='white'
+        plot_bgcolor='white',
+        font=dict(size=14),
+        title={
+        #'y':0.95,
+        'x':0.5
+        }
     )
 
     return fig
