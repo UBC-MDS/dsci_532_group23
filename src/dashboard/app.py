@@ -78,10 +78,3 @@ def make_app():
     ])
 
     return app # this returns the global app
-
-# log.info('running outside of main')
-# app = run(app)
-
-# if __name__ == '__main__':
-#     log.info('running main')
-#     app.run_server(debug=True)
