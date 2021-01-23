@@ -100,7 +100,7 @@ def make_app():
         id='year_slider',
         min=1980,
         max=2018,
-        marks={year: str(year) for year in range(1980, 2019, 1)})
+        marks={year: str(year) for year in range(1980, 2019, 2)})
 
     # country dropdown
     countries = [{'label': val, 'value': val} for val in df.country.unique()]
