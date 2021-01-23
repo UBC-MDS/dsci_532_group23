@@ -77,7 +77,7 @@ def world_map(df, year='1980', energy_type='renewables', energy_col='energy_per_
         title_text = f'World Energy Consumption ({year})',
         margin=dict(t=30, b=0, r=0, l=20),
         width=800,
-        font=dict(size=24),
+        title_font_size=24,#dict(size=24),
         title={
         'y':0.95,
         'x':0.4}
@@ -119,7 +119,7 @@ def single_country(df, country='Canada'):
             title='Energy Consumption (Quad BTU)',
             showgrid=False
         ),
-        width=1200,
+        width=1000,
         height=300,
         plot_bgcolor='white',
         font=dict(size=14),
