@@ -17,8 +17,9 @@ df = dp.df_clean()
     Output('world_map', 'figure'),
     Output('bar_top', 'figure'),
     Input('energy_dropdown', 'value'),
-    Input('year_slider', 'value'))
-def update_map_energy(energy_type, year, *args, **kw):
+    Input('year_slider', 'value'),
+    Input('cb_percapita', 'value'))
+def update_map_energy(energy_type, year, percapita, *args, **kw):
     """Update world_map chart based on energy_type dropdown and year_slider"""
 
     # not necessary, but can be used to check which input triggered callback, eg slider or dropdown
@@ -34,7 +35,14 @@ def update_map_energy(energy_type, year, *args, **kw):
     if year is None:
         year = '1980'
 
-    return ch.multi_plots(df=df, energy_type=energy_type, year=str(year))
+    print('cb_percapita', percapita)
+    energy_col = 'energy_per_capita' if percapita else 'energy'
+
+    return ch.multi_plots(
+        df=df,
+        energy_type=energy_type,
+        year=str(year),
+        energy_col=energy_col)
 
 @app.callback(
     Output('single_country', 'figure'),
@@ -53,9 +61,10 @@ def update_single_country(country, *args, **kw):
 
     return ch.single_country(df=df, country=country)
 
-def style_dropdown(dropdown):
+def wrap_elements(items):
     """Wrap dropdown with some html stuff"""
-    return html.Div([dropdown], style={
+    if not isinstance(items, list): items = [items]
+    return html.Div([*items], style={
             'margin-bottom': '20px',
             'margin-left': 'auto',
             'horizontal-align': 'right',
@@ -67,8 +76,17 @@ def make_app():
     """Add layout to global app"""
 
     # set default charts
-    fig_world_map, fig_bar_top = ch.multi_plots(df=df, year='1980', energy_type='renewables')
+    fig_world_map, fig_bar_top = ch.multi_plots(df=df)
     fig_single_country = ch.single_country(df=df, country='World')
+
+    # per-capita checkbox
+    cb_percapita = dcc.Checklist(
+        id='cb_percapita',
+        options=[
+            {'label': 'Per-Capita Values', 'value': 'pc'},
+        ],
+        value=['pc']
+    )  
 
     # Energy type dropdown, using uniqe energy_type values
     energy_types = [{'label': val.replace('_', ' ').title(), 'value': val} for val in df.energy_type.unique()]
@@ -100,11 +118,13 @@ def make_app():
         className='row')
 
     app.layout = html.Div([
-        style_dropdown(energy_dropdown),
+
+        
+        wrap_elements([cb_percapita, energy_dropdown]),
         multi_plots,
         html.Div([year_slider],
             style={'margin-top': '20px', 'margin-bottom': '20px'}),
-        style_dropdown(country_dropdown),
+        wrap_elements(country_dropdown),
         dcc.Graph(
             id='single_country',
             figure=fig_single_country,
