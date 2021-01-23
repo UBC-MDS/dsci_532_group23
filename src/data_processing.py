@@ -24,7 +24,8 @@ def df_clean():
             how='left') \
         .set_index('year', drop=False) \
         .rename_axis('index') \
-        .assign(energy_per_capita=lambda x: 1e15 * x.energy / x.population) # btu (quad is 1e15)
+        .assign(energy_per_capita=lambda x: 1e15 * x.energy / x.population) \
+        .pipe(lambda df: df[df.energy_type != 'all_renewable'])
 
 def df_country():
     """Read country code conversion df"""
