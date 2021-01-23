@@ -4,9 +4,9 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 
-from . import charts as ch
-from . import data_processing as dp
-from .__init__ import getlog
+from .. import charts as ch
+from .. import data_processing as dp
+from ..__init__ import getlog
 
 log = getlog(__name__)
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -100,7 +100,7 @@ def make_app():
         id='year_slider',
         min=1980,
         max=2018,
-        marks={year: str(year) for year in range(1980, 2019, 2)})
+        marks={year: str(year) for year in range(1980, 2019, 1)})
 
     # country dropdown
     countries = [{'label': val, 'value': val} for val in df.country.unique()]

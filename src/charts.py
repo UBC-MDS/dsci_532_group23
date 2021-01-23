@@ -14,7 +14,7 @@ def multi_plots(df, year='1980', energy_type='renewables', energy_col='energy_pe
     # filter df, both use same data
     df = filter_df(df, energy_type=energy_type, year=year)
     fig2 = top_bar(df=df, energy_col=energy_col)
-    fig1 = world_map(df=df, energy_col=energy_col)
+    fig1 = world_map(df=df, year=year, energy_col=energy_col)
 
     return fig1, fig2
 
@@ -71,7 +71,7 @@ def world_map(df, year='1980', energy_type='renewables', energy_col='energy_per_
     fig = go.Figure(data=[map_trace])
 
     fig.update_layout(
-        title_text = 'World Energy Consumption',
+        title_text = f'World Energy Consumption ({year})',
         margin=dict(t=30, b=0, r=0, l=20),
         width=800
         # geo_scope='usa', # limite map scope to USA
