@@ -2,7 +2,7 @@
 - author: DSCI 532 group 23
 
 
-#### The final dashboard can be found [here](https://world-energy-group23.herokuapp.com/)
+#### The world energy consumption dashboard can be found [here](https://world-energy-group23.herokuapp.com/)
 
 ## Welcome
 
