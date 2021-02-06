@@ -63,11 +63,22 @@ def top_bar(df, energy_type='renewables', year='1980', n=10, energy_col='energy_
 def world_map(df, year='1980', energy_type='renewables', energy_col='energy_per_capita', **kw):
     """Create main world map plot of energy consumption"""  
 
+    # df_filtered = df[df['year'==year]]
+    # for col in df_filtered.columns:
+    #     df_filtered[col] = df_filtered[col].astype(str)
+
+    df['text'] = df['country'] + '<br>' + \
+       'Energy = ' + df[energy_col].astype(str) + '<br>' + \
+       'Population = ' + df['population'].astype(str)
+    
+
     map_trace = go.Choropleth(
         locations=df.country_code,
         z=df[energy_col],
         locationmode='ISO-3',
         colorscale='viridis',
+        text=df['text'],
+        hoverinfo='text',
         # reversescale=True
         colorbar_title=y_title(energy_col))
 
