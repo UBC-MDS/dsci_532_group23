@@ -16,6 +16,7 @@ The main feature of this app is an interactive world map, which will display ene
 ## proposal
 
 The proposal can be found [here](https://world-energy-consumption-app.herokuapp.com)
+
 ## Initial App sketch
 
 ![](doc/world_energy_consumption_sketch.png)
