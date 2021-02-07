@@ -18,22 +18,6 @@ df_country = dp.df_country()
 
 darkblue = ch.colors[5]
 
-styles = {
-    'pre': {
-        'border': 'thin lightgrey solid',
-        'overflowX': 'scroll'
-    }
-}
-
-
-# @app.callback(
-#     Output('click-data', 'children'),
-#     Input('world_map', 'clickData'))
-# def update_map_on_click(clickData):
-#     s = json.dumps(clickData, indent=2)
-#     # print(s)
-#     return s
-
 @app.callback(
     Output('world_map', 'figure'),
     Output('bar_top', 'figure'),
@@ -194,7 +178,6 @@ def make_app():
          The data is from The US Energy Information Administration made available to the public. Energy is measured in British Thermal Units (BTU), where 1 BTU = 1055.06 Joules.
          Dashboard last updated on Feb 6th 2021.
          '''),
-        html.Pre(id='click-data', style=styles['pre']),
          
         ],
         style={
