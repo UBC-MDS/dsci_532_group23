@@ -1,0 +1,15 @@
+# Milestone 4 Reflection
+
+In this milestone, we have implemented in our dashboard the world map heatmap of energy consumption, a bar chart with the top 10 energy consumers and a line plot on the bottom for the energy consumption by country with all the different energy types. The functionality implemented so far includes changing from per-capita values and total values for each country. This change when toggled changes both the world map and the bar chart. There is also an energy type dropdown menu that users can select the energy type they wish to view (total, renewables, natural gas etc.) and that will change both the world map and the bar chart again. Once again, the world map and the bar chart are each effected by an implemented year slider beneath the plots. The slider when moved changes the energy consumption to view countries by year that ranges from 1980 to 2018. In the line plot below, the energy consumption my individual country is changed by a drop-down menu with all the different available countries. Countries here can be searched by typing inside the dropdown menu. Hovering the mouse over each data point in each plot creates a small pop up with information about the country, the energy it consumes, the energy per capita and the country's population.
+
+
+We did not include another visualization as we were originally planning to compare different countries. This visualization would have allowed users to compare one country with another directly. However, the reasons this was not included is two-fold; for 1, The space in the dashboard was more limited and shortening the line plot could sacrifice some of the information presented there. Second, implementing the visualization such that it could fit into the planned space took more time than expected. Time that was instead used to make changes to the dashboard to address the more common feedback comments. On the list of things we had to work on, adding the other visualization was low on the priority list as much of the feedback mentioned what was already present was good but if the planned visualization could be achieved would further enhance any potential arguments. A big draw of time spent was understanding and changing the dash html layout, that sometimes did not seem to want to work and caused some bugs that needed to be sorted.
+
+### Feedback Comments
+
+Overall the feedback we received had common themes. The main one was the confusion with the year slider which appeared to be selecting multiple years when that was not the intention and has been resolved. Another was hover labels in the world map which has now been updated and changed. We also added some additional information about the data source and what the energy units represented. Furthermore, we included a title to the dashboard. Other feedback we as a group did not necessarily agree with such as including a static legend across energy types as some energy types dominated and would have made the world map heatmap particularly confusing.
+
+
+
+
+
