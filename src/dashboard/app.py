@@ -1,3 +1,4 @@
+from itertools import count
 import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
@@ -7,13 +8,31 @@ from dash.dependencies import Input, Output
 from .. import charts as ch
 from .. import data_processing as dp
 from ..__init__ import getlog
+import json
 
 log = getlog(__name__)
 app = dash.Dash(__name__, title="World Energy Consumption", external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 df = dp.df_clean()
+df_country = dp.df_country()
 
 darkblue = ch.colors[5]
+
+styles = {
+    'pre': {
+        'border': 'thin lightgrey solid',
+        'overflowX': 'scroll'
+    }
+}
+
+
+# @app.callback(
+#     Output('click-data', 'children'),
+#     Input('world_map', 'clickData'))
+# def update_map_on_click(clickData):
+#     s = json.dumps(clickData, indent=2)
+#     # print(s)
+#     return s
 
 @app.callback(
     Output('world_map', 'figure'),
@@ -45,6 +64,25 @@ def update_map_energy(energy_type, year, percapita, *args, **kw):
         energy_type=energy_type,
         year=str(year),
         energy_col=energy_col)
+
+def get_country_from_click(click_data):
+    if not click_data is None:
+        country_code = click_data['points'][0]['location']
+        country = df_country[df_country.country_code == country_code].country.values[0]
+        print(country)
+    else:
+        print('click data none')
+        country = None
+
+    return country
+
+@app.callback(
+    Output('country_dropdown', 'value'),
+    Input('world_map', 'clickData'))
+def update_country_dropdown(click_data):
+    country_clicked = get_country_from_click(click_data=click_data)
+    country = country_clicked if not country_clicked is None else 'World'
+    return country
 
 @app.callback(
     Output('single_country', 'figure'),
@@ -155,7 +193,8 @@ def make_app():
         html.P(f'''
          The data is from The US Energy Information Administration made available to the public. Energy is measured in British Thermal Units (BTU), where 1 BTU = 1055.06 Joules.
          Dashboard last updated on Feb 6th 2021.
-         ''')
+         '''),
+        html.Pre(id='click-data', style=styles['pre']),
          
         ],
         style={
