@@ -12,6 +12,7 @@ from . import functions as f
 pal = sns.color_palette('viridis', n_colors=21)
 colors = pal.as_hex()
 
+
 # TODO need to make all values use total energy OR energy_per_capita
 y_title = lambda x: 'BTU per Capita' if 'capita' in x else 'Quadrillion BTU'
 
