@@ -13,6 +13,8 @@ app = dash.Dash(__name__, title="World Energy Consumption", external_stylesheets
 
 df = dp.df_clean()
 
+darkblue = ch.colors[5]
+
 @app.callback(
     Output('world_map', 'figure'),
     Output('bar_top', 'figure'),
@@ -85,7 +87,8 @@ def make_app():
         options=[
             {'label': 'Per-Capita Values', 'value': 'pc'},
         ],
-        value=['pc']
+        value=['pc'],
+        inputStyle={'margin-right': '0.5rem'}
     )  
 
     # Energy type dropdown, using uniqe energy_type values
@@ -121,7 +124,7 @@ def make_app():
     app.layout = html.Div([
         html.H1('World Energy Consumption',
                 style={
-                    'backgroundColor': 'darkblue',
+                    'backgroundColor': darkblue,
                     'padding': 20,
                     'color': 'white',
                     'margin-top': 20,
@@ -129,7 +132,6 @@ def make_app():
                     'text-align': 'center',
                     'font-size': '48px',
                     'border-radius': 3}),
-
         
         wrap_elements([cb_percapita, energy_dropdown]),
         multi_plots,
@@ -155,8 +157,12 @@ def make_app():
          Dashboard last updated on Feb 6th 2021.
          ''')
          
-    ], style={'width': 1200, 'margin-left': '40px'}
+        ],
+        style={
+            'width': 1300,
+            'margin-left': '40px',
+            }
 
-     )
+    )
 
     return app # this returns the global app

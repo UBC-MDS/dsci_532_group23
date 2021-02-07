@@ -15,17 +15,30 @@ p_clean = p_data / f'{name}.csv'
 
 def df_clean():
     """Read cleaned df from /data"""
-    return pd.read_csv(p_clean) \
+    df = pd.read_csv(p_clean) \
         .assign(year=lambda x: pd.PeriodIndex(x.year, freq='Y')) \
         .merge(right=df_country(), how='right', on='country_code') \
         .merge(
             right=df_population()[['year', 'country_code', 'population']],
             on=['year', 'country_code'],
             how='left') \
-        .set_index('year', drop=False) \
-        .rename_axis('index') \
-        .assign(energy_per_capita=lambda x: 1e15 * x.energy / x.population) \
+        .assign(
+            energy_quad=lambda x: 1e15 * x.energy,
+            energy_per_capita=lambda x: x.energy_quad / x.population) \
         .pipe(lambda df: df[df.energy_type != 'all_renewable'])
+    
+    # pull total energy usage by year/country
+    df_total = df[df.energy_type == 'total'] \
+        [['year', 'country_code', 'energy']] \
+        .rename(columns=dict(energy='energy_total'))
+
+    return df \
+        .merge(right=df_total, on=['year', 'country_code'], how='left') \
+        .assign(
+            pct_total=lambda x: x.energy / x.energy_total) \
+        .drop(columns=['energy_total']) \
+        .set_index('year', drop=False) \
+        .rename_axis('index')
 
 def df_country():
     """Read country code conversion df"""
